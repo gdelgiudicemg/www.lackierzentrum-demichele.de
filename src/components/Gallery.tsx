@@ -24,8 +24,8 @@ const BeforeAfter = ({
       </div>
       <div className="relative aspect-video">
         <img
-          src={beforeSrc}
-          alt={`${title} - Vorher`}
+          src={afterSrc}
+          alt={`${title} - Nachher`}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -34,8 +34,8 @@ const BeforeAfter = ({
           style={{ clipPath: `inset(0 ${100 - value}% 0 0)` }}
         >
           <img
-            src={afterSrc}
-            alt={`${title} - Nachher`}
+            src={beforeSrc}
+            alt={`${title} - Vorher`}
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
           />

@@ -52,7 +52,7 @@ const About = () => {
     { year: '2017-2023', title: 'Geselle', icon: Users },
     { year: '2023-2024', title: 'Meisterschule', icon: Award },
     { year: '2024-2026', title: 'Abteilungsleiter & Meister', icon: Trophy },
-    { year: '2026', title: 'Selbstständig', icon: Award },
+    { year: '2026', title: 'Meisterbetrieb', icon: Award },
   ];
 
   return (
@@ -122,7 +122,7 @@ const About = () => {
           className="mt-16"
         >
           <h3 className="text-3xl font-bold text-white text-center mb-12">
-            Unser Weg zur Meisterschaft
+            Unser Weg zum Meisterbetrieb
           </h3>
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6"
