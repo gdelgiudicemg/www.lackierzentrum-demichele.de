@@ -50,7 +50,7 @@ const Navigation = ({ onNavigateToSection }: NavigationProps) => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24 md:h-28">
           <div
             className="flex-shrink-0 cursor-pointer"
             onClick={() => navigateToSection('hero')}
@@ -58,7 +58,7 @@ const Navigation = ({ onNavigateToSection }: NavigationProps) => {
             <img
               src="/logo.png"
               alt="Lackierzentrum De Michele"
-              className="h-12 w-auto"
+              className="h-20 md:h-24 lg:h-28 w-auto"
               onError={(e) => {
                 e.currentTarget.src = '/daniele.jpeg';
               }}

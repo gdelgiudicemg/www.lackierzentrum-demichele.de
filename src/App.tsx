@@ -10,7 +10,7 @@ import CTA from './components/CTA';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import SplashLogo from './components/SplashLogo';
-import GalleryPage from './components/GalleryPage';
+import GalleryPage from './components/GalleryPage.tsx';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -43,6 +43,18 @@ function App() {
             <Hero />
             <About />
             <Services />
+            <section className="py-14 bg-gradient-to-b from-brand-dark via-black to-brand-dark">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md">
+                  <img
+                    src="/images/insert.png"
+                    alt="Insert"
+                    loading="lazy"
+                    className="w-full h-[260px] sm:h-[340px] lg:h-[420px] object-cover"
+                  />
+                </div>
+              </div>
+            </section>
             <AdditionalServices />
             <WhyChooseUs />
             <Gallery

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, MapPin, Send } from 'lucide-react';
+import { Mail, MapPin, Send, Clock } from 'lucide-react';
 
 const Contact = () => {
   const ref = useRef(null);
@@ -129,6 +129,24 @@ const Contact = () => {
                   >
                     info@lackierzentrum-demichele.de
                   </a>
+                </div>
+              </motion.div>
+
+              <motion.div className="flex items-start space-x-4" variants={itemVariants}>
+                <div className="flex-shrink-0">
+                  <div className="bg-brand-blue/20 rounded-full p-3">
+                    <Clock className="w-6 h-6 text-brand-blue" />
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold mb-1">Öffnungszeiten</h4>
+                  <p className="text-gray-400">
+                    Montag–Freitag: 08:00–17:00
+                    <br />
+                    Samstag: 09:00–12:00
+                    <br />
+                    Sonntag: geschlossen
+                  </p>
                 </div>
               </motion.div>
             </motion.div>
