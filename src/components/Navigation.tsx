@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
-const Navigation = () => {
+type NavigationProps = {
+  onNavigateToSection?: (sectionId: string) => void;
+};
+
+const Navigation = ({ onNavigateToSection }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -17,8 +21,16 @@ const Navigation = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
     }
+  };
+
+  const navigateToSection = (sectionId: string) => {
+    if (onNavigateToSection) {
+      onNavigateToSection(sectionId);
+    } else {
+      scrollToSection(sectionId);
+    }
+    setIsMobileMenuOpen(false);
   };
 
   const navItems = [
@@ -41,7 +53,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           <div
             className="flex-shrink-0 cursor-pointer"
-            onClick={() => scrollToSection('hero')}
+            onClick={() => navigateToSection('hero')}
           >
             <img
               src="/logo.png"
@@ -57,14 +69,14 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => navigateToSection(item.id)}
                 className="text-white hover:text-brand-gold transition-colors duration-300 font-medium"
               >
                 {item.label}
               </button>
             ))}
             <button
-              onClick={() => scrollToSection('contact')}
+              onClick={() => navigateToSection('contact')}
               className="bg-brand-blue text-white px-6 py-2 rounded-full hover:bg-brand-blue/90 transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
             >
               Termin anfragen
@@ -88,14 +100,14 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => navigateToSection(item.id)}
                 className="block w-full text-left text-white hover:text-brand-gold transition-colors duration-300 py-2 font-medium"
               >
                 {item.label}
               </button>
             ))}
             <button
-              onClick={() => scrollToSection('contact')}
+              onClick={() => navigateToSection('contact')}
               className="w-full bg-brand-blue text-white px-6 py-3 rounded-full hover:bg-brand-blue/90 transition-all duration-300 font-medium mt-4"
             >
               Termin anfragen
