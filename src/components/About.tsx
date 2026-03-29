@@ -92,18 +92,19 @@ const About = () => {
         </motion.div>
 
         <motion.div
-          className="grid md:grid-cols-2 gap-12 items-center mb-16"
+          className="mb-16 flow-root"
           variants={sectionVariants}
           initial="hidden"
           animate={isInView ? 'show' : 'hidden'}
         >
           <motion.div
             variants={fadeLeft}
+            className="mb-8 md:mb-4 md:mr-10 md:float-left md:w-[46%] lg:w-[40%]"
           >
             <img
               src="https://images.pexels.com/photos/3954635/pexels-photo-3954635.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Lackierzentrum"
-              className="rounded-lg shadow-2xl"
+              className="w-full rounded-lg shadow-2xl"
             />
           </motion.div>
 
