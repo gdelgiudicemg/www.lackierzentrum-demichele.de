@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,11 +15,26 @@ import GalleryPage from './components/GalleryPage.tsx';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
+  const [showContent, setShowContent] = useState(false);
   const [page, setPage] = useState<'home' | 'gallery'>('home');
+  const backgroundSrc = encodeURI('/sfondo per sito.png');
   useEffect(() => {
-    const t = setTimeout(() => setShowSplash(false), 2300);
-    return () => clearTimeout(t);
-  }, []);
+    if (showSplash) {
+      setShowContent(false);
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = '';
+    const t = setTimeout(() => setShowContent(true), 350);
+    return () => {
+      document.body.style.overflow = prev;
+      clearTimeout(t);
+    };
+  }, [showSplash]);
 
   useEffect(() => {
     if (page === 'gallery') {
@@ -36,36 +52,63 @@ function App() {
   return (
     <>
       <SplashLogo show={showSplash} onFinish={() => setShowSplash(false)} />
-      <div className="min-h-screen bg-brand-dark">
-        <Navigation onNavigateToSection={navigateToSection} />
-        {page === 'home' ? (
-          <>
-            <Hero />
-            <About />
-            <Services />
-            <AdditionalServices />
-            <WhyChooseUs />
-            <Gallery
-              onOpenGalleryPage={() => {
-                setPage('gallery');
-              }}
-            />
-            <CTA />
-            <Contact />
-          </>
-        ) : (
-          <GalleryPage
-            onBack={() => {
-              setPage('home');
-              setTimeout(() => {
-                document
-                  .getElementById('gallery')
-                  ?.scrollIntoView({ behavior: 'smooth' });
-              }, 0);
+      <div className="min-h-screen relative bg-black">
+        <div aria-hidden className="pointer-events-none fixed inset-0 z-[0]">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${backgroundSrc}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
             }}
           />
-        )}
-        <Footer />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/70" />
+        </div>
+        <motion.div
+          className="relative z-[60]"
+          initial={false}
+          animate={
+            showContent
+              ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+              : { opacity: 0, y: 24, filter: 'blur(10px)' }
+          }
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          style={{ pointerEvents: showContent ? 'auto' : 'none' }}
+        >
+          <Navigation
+            onNavigateToSection={navigateToSection}
+            hideLogo={page === 'gallery'}
+          />
+          {page === 'home' ? (
+            <>
+              <Hero />
+              <About />
+              <Services />
+              <AdditionalServices />
+              <WhyChooseUs />
+              <Gallery
+                onOpenGalleryPage={() => {
+                  setPage('gallery');
+                }}
+              />
+              <CTA />
+              <Contact />
+            </>
+          ) : (
+            <GalleryPage
+              onBack={() => {
+                setPage('home');
+                setTimeout(() => {
+                  document
+                    .getElementById('gallery')
+                    ?.scrollIntoView({ behavior: 'smooth' });
+                }, 0);
+              }}
+            />
+          )}
+          <Footer />
+        </motion.div>
       </div>
     </>
   );

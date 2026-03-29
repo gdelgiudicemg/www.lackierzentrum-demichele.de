@@ -6,6 +6,7 @@ import { Award, Users, Wrench, Trophy } from 'lucide-react';
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const paintLogoSrc = '/standox.png';
 
   const sectionVariants = {
     hidden: {},
@@ -68,6 +69,19 @@ const About = () => {
           animate={isInView ? 'show' : 'hidden'}
           className="text-center mb-16"
         >
+          <motion.img
+            src={paintLogoSrc}
+            alt="Standox"
+            className="mx-auto mb-6 h-24 sm:h-32 md:h-40 w-auto max-w-[420px] sm:max-w-[560px] md:max-w-[680px] object-contain drop-shadow-[0_22px_60px_rgba(0,0,0,0.65)]"
+            loading="lazy"
+            initial={{ opacity: 0, y: 24, scale: 0.92, filter: 'blur(10px)' }}
+            animate={
+              isInView
+                ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
+                : { opacity: 0, y: 24, scale: 0.92, filter: 'blur(10px)' }
+            }
+            transition={{ duration: 0.9, ease: 'easeOut', delay: 0.05 }}
+          />
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             Über uns
           </h2>

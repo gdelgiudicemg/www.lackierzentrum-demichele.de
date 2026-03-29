@@ -25,7 +25,7 @@ const SplashLogo = ({ show, onFinish }: SplashLogoProps) => {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-brand-dark"
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-brand-dark"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

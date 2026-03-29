@@ -69,7 +69,7 @@ const WhyChooseUs = () => {
   return (
     <section
       ref={ref}
-      className="py-20 bg-gradient-to-b from-brand-dark via-black to-brand-dark"
+      className="py-20 bg-gradient-to-b from-brand-dark/50 via-black/30 to-brand-dark/55"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div

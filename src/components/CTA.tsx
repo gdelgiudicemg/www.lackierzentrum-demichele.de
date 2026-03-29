@@ -17,7 +17,7 @@ const CTA = () => {
   return (
     <section
       ref={ref}
-      className="py-20 bg-gradient-to-br from-brand-red/20 via-brand-dark to-brand-blue/20 relative overflow-hidden"
+      className="py-20 bg-gradient-to-br from-brand-red/20 via-brand-dark/50 to-brand-blue/20 relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg?auto=compress&cs=tinysrgb&w=1920')] bg-cover bg-center opacity-10"></div>
 

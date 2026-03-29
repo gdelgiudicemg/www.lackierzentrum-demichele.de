@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useMemo } from 'react';
+import { galleryImages } from 'virtual:gallery-images';
 
 type GalleryPageProps = {
   onBack: () => void;
@@ -11,48 +12,13 @@ const GalleryPage = ({ onBack }: GalleryPageProps) => {
     document.body.scrollTop = 0;
   }, []);
 
-  const imageFiles = useMemo(
-    () => [
-      'WhatsApp Image 2026-03-26 at 16.39.12.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.13 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.13 (2).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.13.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.14 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.14 (2).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.14 (3).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.14.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.15.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.16 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.16.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.17 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.17.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.18.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.22 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.22.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.23 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.23 (2).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.23 (5).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.39.23.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.40.14 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.40.14 (2).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.40.14 (3).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.40.14.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.40.15 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.40.15.jpeg',
-      'WhatsApp Image 2026-03-26 at 16.42.18 (1).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.42.18 (2).jpeg',
-      'WhatsApp Image 2026-03-26 at 16.42.19 (1).jpeg',
-    ],
-    []
-  );
-
   const galleryItems = useMemo(
     () =>
-      imageFiles.map((fileName, index) => ({
-        image: encodeURI(`/images/${fileName}`),
+      galleryImages.map((image, index) => ({
+        image,
         title: `Foto ${(index + 1).toString().padStart(2, '0')}`,
       })),
-    [imageFiles]
+    []
   );
 
   const gridVariants = {
@@ -71,7 +37,10 @@ const GalleryPage = ({ onBack }: GalleryPageProps) => {
   };
 
   return (
-    <main className="pt-28 pb-20 bg-gradient-to-b from-brand-dark via-black to-brand-dark">
+    <main
+      className="pb-20 bg-gradient-to-b from-brand-dark/50 via-black/30 to-brand-dark/55"
+      style={{ paddingTop: 'var(--nav-h)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
           <div>

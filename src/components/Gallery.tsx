@@ -128,7 +128,7 @@ const Gallery = ({ onOpenGalleryPage }: GalleryProps) => {
     <section
       id="gallery"
       ref={ref}
-      className="py-20 bg-gradient-to-b from-brand-dark via-black to-brand-dark"
+      className="py-20 bg-gradient-to-b from-brand-dark/50 via-black/30 to-brand-dark/55"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -170,9 +170,13 @@ const Gallery = ({ onOpenGalleryPage }: GalleryProps) => {
         <div className="mt-10 flex justify-center">
           <button
             onClick={onOpenGalleryPage}
-            className="bg-brand-blue text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-brand-blue/90 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-brand-blue/40"
+            className="text-white px-8 py-4 rounded-full text-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(255,80,0,0.9), rgba(255,215,0,0.95) 30%, rgba(0,122,255,0.95))',
+            }}
           >
-            Alle Fotos ansehen
+            Mehr Bilder ansehen
           </button>
         </div>
       </div>

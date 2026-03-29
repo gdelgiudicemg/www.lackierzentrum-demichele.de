@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Car, Wrench, Sparkles, Shield } from 'lucide-react';
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -12,11 +12,20 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-dark via-black to-brand-dark overflow-hidden"
+      className="relative min-h-screen flex items-start justify-center bg-gradient-to-br from-brand-dark/50 via-black/30 to-brand-dark/55 overflow-hidden"
+      style={{ paddingTop: 'var(--nav-h)' }}
     >
-      <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3806288/pexels-photo-3806288.jpeg?auto=compress&cs=tinysrgb&w=1920')] bg-cover bg-center opacity-15"></div>
-
       <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-transparent to-brand-dark/90"></div>
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'radial-gradient(40rem 28rem at 10% 26%, rgba(234, 57, 43, 0.6), transparent 60%), radial-gradient(36rem 26rem at 90% 22%, rgba(0, 122, 255, 0.55), transparent 60%)',
+          backgroundRepeat: 'no-repeat',
+          mixBlendMode: 'screen',
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
@@ -42,7 +51,11 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => scrollToSection('contact')}
-              className="bg-brand-red text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-brand-red/90 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-brand-red/50"
+              className="text-white px-8 py-4 rounded-full text-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(255,180,0,0.9), rgba(255,215,0,0.95) 30%, rgba(0,122,255,0.95))',
+              }}
             >
               Jetzt Termin anfragen
             </button>
@@ -54,6 +67,27 @@ const Hero = () => {
             </button>
           </div>
         </motion.div>
+
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          {[
+            { label: 'Fahrzeuglackierungen', Icon: Car },
+            { label: 'Unfallinstandsetzung', Icon: Wrench },
+            { label: 'Smart Repair', Icon: Sparkles },
+            { label: 'Oldtimer-Restaurierung', Icon: Shield },
+          ].map(({ label, Icon }) => (
+            <div
+              key={label}
+              className="group relative rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
+            >
+              <div className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                   style={{ background: 'linear-gradient(90deg, rgba(255,0,0,0.25), rgba(255,215,0,0.25), rgba(0,122,255,0.25))' }} />
+              <div className="relative z-10 px-5 py-4 flex items-center gap-3">
+                <Icon className="w-6 h-6 text-brand-gold" />
+                <span className="text-white font-medium">{label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}
