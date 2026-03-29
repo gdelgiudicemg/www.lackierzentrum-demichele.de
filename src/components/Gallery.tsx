@@ -18,10 +18,6 @@ const BeforeAfter = ({
   const [value, setValue] = useState(50);
   return (
     <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg overflow-hidden">
-      <div className="px-5 py-4 flex items-center justify-between gap-4">
-        <h3 className="text-white font-semibold">{title}</h3>
-        <div className="text-sm text-gray-300">Vorher / Nachher</div>
-      </div>
       <div className="relative aspect-video">
         <img
           src={afterSrc}

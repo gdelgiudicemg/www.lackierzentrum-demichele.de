@@ -7,7 +7,7 @@ type SplashLogoProps = {
 };
 
 const SplashLogo = ({ show, onFinish }: SplashLogoProps) => {
-  const preferredLogoSrc = '/logo.png';
+  const preferredLogoSrc = '/insert.png';
   const fallbackLogoSrc = '/daniele.jpeg';
   const [logoSrc, setLogoSrc] = useState(preferredLogoSrc);
 

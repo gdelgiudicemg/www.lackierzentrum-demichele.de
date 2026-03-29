@@ -115,16 +115,54 @@ const About = () => {
               Meisterbetrieb De Michele
             </h3>
             <p className="text-gray-300 text-lg leading-relaxed">
-              Mit jahrelanger Erfahrung und echter Meisterkompetenz steht das
-              Lackierzentrum De Michele für höchste Qualität in der
-              Fahrzeuglackierung und Karosseriearbeit in Ellwangen.
+              Ein makelloser Lack ist mehr als nur Optik, er steht für
+              Werterhalt, Qualität und den perfekten ersten Eindruck. Genau
+              dafür steht das Lackierzentrum De Michele.
             </p>
             <p className="text-gray-300 text-lg leading-relaxed">
-              Von der Ausbildung über die Gesellenzeit bis zur Meisterschule
-              und der Position als Abteilungsleiter – jeder Schritt wurde mit
-              Präzision und Leidenschaft gegangen. Heute führen wir einen
-              eigenständigen Meisterbetrieb, der Tradition mit modernster
-              Technik verbindet.
+              Als Fahrzeuglackiermeister verbinde ich, Daniele De Michele,
+              fundierte Ausbildung, langjährige Praxiserfahrung und höchste
+              Ansprüche an meine eigene Arbeit. Nach meiner Ausbildung von 2014
+              bis 2017 und mehreren Jahren als Geselle habe ich mein
+              handwerkliches Können kontinuierlich weiterentwickelt und
+              perfektioniert. Mit dem erfolgreichen Abschluss der Meisterschule
+              von 2023 bis 2024 sowie meiner anschließenden Tätigkeit als
+              Abteilungsleiter und Meister konnte ich meine Erfahrung weiter
+              vertiefen und meine Arbeitsweise auf ein neues Niveau heben.
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Heute bringe ich dieses Wissen und diese Erfahrung in mein eigenes
+              Unternehmen ein mit dem klaren Anspruch, Lackierarbeiten auf
+              höchstem Niveau anzubieten.
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Durch den Einsatz modernster Technik und umweltschonender Lacke
+              entstehen Ergebnisse, die nicht nur optisch herausragen, sondern
+              auch nachhaltig Bestand haben. Dabei arbeite ich effizient, sauber
+              und mit einem geschulten Blick fürs Detail, denn echte Qualität
+              zeigt sich in jeder einzelnen Nuance.
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Das Leistungsspektrum umfasst Lackierarbeiten jeder Art: von Smart
+              Repair über Teil- und Komplettlackierungen bis hin zur
+              fachgerechten Unfallinstandsetzung. Auch die lacktechnische
+              Aufbereitung und Restaurierung von Oldtimern gehört zum Angebot
+              mit klarem Fokus auf hochwertige und präzise Lackierung.
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Ob kleine Ausbesserung oder umfangreiche Arbeiten jedes Projekt
+              wird persönlich betreut und mit größter Sorgfalt umgesetzt.
+              Ehrliche Beratung, transparente Abläufe und absolute
+              Zuverlässigkeit sind dabei selbstverständlich.
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              Mein Anspruch ist klar: Ergebnisse zu schaffen, die nicht nur gut
+              aussehen, sondern langfristig überzeugen.
+            </p>
+            <p className="text-gray-300 text-lg leading-relaxed">
+              <span className="font-semibold text-brand-gold">
+                Vertrauen Sie auf Qualität, Erfahrung und echtes Meisterhandwerk im Lackierzentrum De Michele.
+              </span>
             </p>
           </motion.div>
         </motion.div>

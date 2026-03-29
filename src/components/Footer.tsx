@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <img
-              src="/logo.png"
+              src="/images/insert.png"
               alt="Lackierzentrum De Michele"
               className="h-12 mb-4"
               onError={(e) => {

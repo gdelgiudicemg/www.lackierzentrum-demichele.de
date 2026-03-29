@@ -13,13 +13,6 @@ export default defineConfig({
       const imagesDir = path.join(configDir, 'public', 'images');
 
       const getGalleryImages = () => {
-        let files: string[] = [];
-        try {
-          files = fs.readdirSync(imagesDir);
-        } catch {
-          files = [];
-        }
-
         const allowedExtensions = new Set([
           '.jpg',
           '.jpeg',
@@ -29,23 +22,47 @@ export default defineConfig({
           '.gif',
         ]);
 
-        return files
-          .filter((fileName) => {
-            const ext = path.extname(fileName).toLowerCase();
-            if (!allowedExtensions.has(ext)) return false;
+        const shouldIncludeFile = (fileName: string) => {
+          const ext = path.extname(fileName).toLowerCase();
+          if (!allowedExtensions.has(ext)) return false;
 
-            const lower = fileName.toLowerCase();
-            if (lower.startsWith('insert.')) return false;
+          const lower = fileName.toLowerCase();
+          if (lower.startsWith('insert.')) return false;
 
-            const normalized = lower.replace(/\s+/g, ' ').trim();
-            if (/^\d+\s*pre\./.test(normalized)) return false;
-            if (/^\d+\s*dopo\./.test(normalized)) return false;
-            if (/^\d+pre\./.test(normalized)) return false;
+          const normalized = lower.replace(/\s+/g, ' ').trim();
+          if (/^\d+\s*pre\./.test(normalized)) return false;
+          if (/^\d+\s*dopo\./.test(normalized)) return false;
+          if (/^\d+pre\./.test(normalized)) return false;
 
-            return true;
-          })
+          return true;
+        };
+
+        const walk = (dir: string, relativeDir = ''): string[] => {
+          let entries: fs.Dirent[] = [];
+          try {
+            entries = fs.readdirSync(dir, { withFileTypes: true });
+          } catch {
+            return [];
+          }
+
+          return entries.flatMap((entry) => {
+            const entryPath = path.join(dir, entry.name);
+
+            if (entry.isDirectory()) {
+              const nextRelative = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+              return walk(entryPath, nextRelative);
+            }
+
+            if (!shouldIncludeFile(entry.name)) return [];
+
+            const relativePath = relativeDir ? `${relativeDir}/${entry.name}` : entry.name;
+            return [relativePath];
+          });
+        };
+
+        return walk(imagesDir)
           .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-          .map((fileName) => encodeURI(`/images/${fileName}`));
+          .map((relativePath) => encodeURI(`/images/${relativePath}`));
       };
 
       const virtualId = 'virtual:gallery-images';
@@ -60,18 +77,10 @@ export default defineConfig({
           if (id !== resolvedVirtualId) return;
           return `export const galleryImages = ${JSON.stringify(getGalleryImages())};`;
         },
-        configureServer(server: { watcher: { add: (path: string) => void } }) {
+        configureServer(server) {
           server.watcher.add(imagesDir);
         },
-        handleHotUpdate(ctx: {
-          file: string;
-          server: {
-            moduleGraph: {
-              getModuleById: (id: string) => unknown;
-              invalidateModule: (mod: unknown) => void;
-            };
-          };
-        }) {
+        handleHotUpdate(ctx) {
           if (!ctx.file.startsWith(imagesDir)) return;
 
           const mod = ctx.server.moduleGraph.getModuleById(resolvedVirtualId);

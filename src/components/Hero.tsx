@@ -13,7 +13,6 @@ const Hero = () => {
     <section
       id="hero"
       className="relative min-h-screen flex items-start justify-center bg-gradient-to-br from-brand-dark/50 via-black/30 to-brand-dark/55 overflow-hidden"
-      style={{ paddingTop: 'var(--nav-h)' }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-transparent to-brand-dark/90"></div>
       <div

@@ -13,10 +13,35 @@ import Footer from './components/Footer';
 import SplashLogo from './components/SplashLogo';
 import GalleryPage from './components/GalleryPage.tsx';
 
+type GalleryCategoryId =
+  | 'fahrzeuglackierung'
+  | 'unfallinstandsetzung'
+  | 'oldtimerrestaurierung'
+  | 'smart-repair'
+  | 'matt-lackierung'
+  | 'industrieteilelackierung'
+  | 'custom-designs'
+  | 'motorrad-und-rollerlackierung';
+
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [page, setPage] = useState<'home' | 'gallery'>('home');
+  const [galleryCategoryId, setGalleryCategoryId] =
+    useState<GalleryCategoryId>('fahrzeuglackierung');
+  const galleryCategoryIds = useState<Set<GalleryCategoryId>>(
+    () =>
+      new Set([
+        'fahrzeuglackierung',
+        'unfallinstandsetzung',
+        'oldtimerrestaurierung',
+        'smart-repair',
+        'matt-lackierung',
+        'industrieteilelackierung',
+        'custom-designs',
+        'motorrad-und-rollerlackierung',
+      ])
+  )[0];
   const backgroundSrc = encodeURI('/sfondo per sito.png');
   useEffect(() => {
     if (showSplash) {
@@ -49,6 +74,13 @@ function App() {
     }, 0);
   };
 
+  const openGalleryPage = (categoryId?: string) => {
+    if (categoryId && galleryCategoryIds.has(categoryId as GalleryCategoryId)) {
+      setGalleryCategoryId(categoryId as GalleryCategoryId);
+    }
+    setPage('gallery');
+  };
+
   return (
     <>
       <SplashLogo show={showSplash} onFinish={() => setShowSplash(false)} />
@@ -78,6 +110,7 @@ function App() {
         >
           <Navigation
             onNavigateToSection={navigateToSection}
+            onOpenGalleryPage={openGalleryPage}
             hideLogo={page === 'gallery'}
           />
           {page === 'home' ? (
@@ -89,7 +122,7 @@ function App() {
               <WhyChooseUs />
               <Gallery
                 onOpenGalleryPage={() => {
-                  setPage('gallery');
+                  openGalleryPage();
                 }}
               />
               <CTA />
@@ -97,6 +130,7 @@ function App() {
             </>
           ) : (
             <GalleryPage
+              initialCategoryId={galleryCategoryId}
               onBack={() => {
                 setPage('home');
                 setTimeout(() => {
