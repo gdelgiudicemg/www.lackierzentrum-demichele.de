@@ -13,35 +13,11 @@ import Footer from './components/Footer';
 import SplashLogo from './components/SplashLogo';
 import GalleryPage from './components/GalleryPage.tsx';
 
-type GalleryCategoryId =
-  | 'fahrzeuglackierung'
-  | 'unfallinstandsetzung'
-  | 'oldtimerrestaurierung'
-  | 'smart-repair'
-  | 'matt-lackierung'
-  | 'industrieteilelackierung'
-  | 'custom-designs'
-  | 'motorrad-und-rollerlackierung';
-
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [page, setPage] = useState<'home' | 'gallery'>('home');
-  const [galleryCategoryId, setGalleryCategoryId] =
-    useState<GalleryCategoryId>('fahrzeuglackierung');
-  const galleryCategoryIds = useState<Set<GalleryCategoryId>>(
-    () =>
-      new Set([
-        'fahrzeuglackierung',
-        'unfallinstandsetzung',
-        'oldtimerrestaurierung',
-        'smart-repair',
-        'matt-lackierung',
-        'industrieteilelackierung',
-        'custom-designs',
-        'motorrad-und-rollerlackierung',
-      ])
-  )[0];
+  const [galleryCategoryId, setGalleryCategoryId] = useState<string | undefined>(undefined);
   const backgroundSrc = encodeURI('/sfondo per sito.png');
   useEffect(() => {
     if (showSplash) {
@@ -75,9 +51,7 @@ function App() {
   };
 
   const openGalleryPage = (categoryId?: string) => {
-    if (categoryId && galleryCategoryIds.has(categoryId as GalleryCategoryId)) {
-      setGalleryCategoryId(categoryId as GalleryCategoryId);
-    }
+    setGalleryCategoryId(categoryId);
     setPage('gallery');
   };
 
@@ -115,7 +89,7 @@ function App() {
           />
           {page === 'home' ? (
             <>
-              <Hero />
+              <Hero onOpenGalleryPage={openGalleryPage} />
               <About />
               <Services />
               <AdditionalServices />

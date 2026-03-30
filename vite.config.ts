@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     (() => {
       const configDir = path.dirname(fileURLToPath(import.meta.url));
-      const imagesDir = path.join(configDir, 'public', 'images');
+      const imagesDir = path.join(configDir, 'public', 'images', 'gallerie');
 
       const getGalleryImages = () => {
         const allowedExtensions = new Set([
@@ -62,7 +62,7 @@ export default defineConfig({
 
         return walk(imagesDir)
           .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
-          .map((relativePath) => encodeURI(`/images/${relativePath}`));
+          .map((relativePath) => encodeURI(`/images/gallerie/${relativePath}`));
       };
 
       const virtualId = 'virtual:gallery-images';

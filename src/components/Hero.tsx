@@ -1,12 +1,82 @@
 import { motion } from 'framer-motion';
-import { ChevronDown, Car, Wrench, Sparkles, Shield } from 'lucide-react';
+import {
+  ChevronDown,
+  Car,
+  Wrench,
+  Sparkles,
+  Paintbrush,
+  Palette,
+  Bike,
+  Clock,
+  Cog,
+} from 'lucide-react';
+import { useMemo } from 'react';
+import { galleryImages } from 'virtual:gallery-images';
 
-const Hero = () => {
+type HeroProps = {
+  onOpenGalleryPage?: (categoryId?: string) => void;
+};
+
+const Hero = ({ onOpenGalleryPage }: HeroProps) => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const slugify = (value: string) =>
+    value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/&/g, 'und')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-+/g, '-');
+
+  const categories = useMemo(() => {
+    const set = new Map<string, string>();
+    for (const image of galleryImages) {
+      const decoded = decodeURI(image);
+      const marker = '/images/';
+      const idx = decoded.indexOf(marker);
+      const relative = idx >= 0 ? decoded.slice(idx + marker.length) : decoded;
+      const parts = relative.split('/').filter(Boolean);
+      const gallerieIdx = parts.findIndex((p) => slugify(p) === 'gallerie');
+      const catSeg = gallerieIdx >= 0 && parts[gallerieIdx + 1] ? parts[gallerieIdx + 1] : parts[0] || '';
+      if (!catSeg) continue;
+      const id = slugify(catSeg);
+      const label = catSeg
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+      if (!set.has(id)) set.set(id, label);
+    }
+    return Array.from(set.entries())
+      .map(([id, label]) => ({ id, label }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+  }, []);
+
+  const categoryIcon = (id: string, label: string) => {
+    const slug = id.toLowerCase();
+    if (slug.includes('fahrzeuglackierung')) return Paintbrush;
+    if (slug.includes('unfallinstandsetzung')) return Wrench;
+    if (slug.includes('smart-repair')) return Sparkles;
+    if (slug.includes('oldtimerrestaurierung')) return Clock;
+    if (slug.includes('matt-lackierung')) return Paintbrush;
+    if (slug.includes('industrieteilelackierung')) return Cog;
+    if (slug.includes('custom-designs')) return Palette;
+    if (slug.includes('motorrad-und-rollerlackierung')) return Bike;
+    const text = `${id} ${label}`.toLowerCase();
+    if (text.includes('auto') || text.includes('car')) return Car;
+    if (text.includes('karosserie') || text.includes('instand')) return Wrench;
+    if (text.includes('matt') || text.includes('lack')) return Paintbrush;
+    if (text.includes('design') || text.includes('effekt')) return Palette;
+    if (text.includes('motor') || text.includes('bike')) return Bike;
+    if (text.includes('oldtimer') || text.includes('klassik') || text.includes('classic')) return Clock;
+    return Sparkles;
   };
 
   return (
@@ -33,10 +103,10 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            Perfekte Lackierungen.
+            Jede Lackierung ein Meisterstück.
             <br />
             <span className="bg-gradient-to-r from-brand-red via-brand-gold/90 to-brand-blue bg-clip-text text-transparent">
-              Präzise Karosseriearbeit.
+              Präzision, Glanz und Perfektion!
             </span>
           </h1>
           <p className="text-xl sm:text-2xl text-gray-300 mb-4 max-w-3xl mx-auto">
@@ -53,7 +123,7 @@ const Hero = () => {
               className="text-white px-8 py-4 rounded-full text-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl"
               style={{
                 background:
-                  'linear-gradient(90deg, rgba(255,180,0,0.9), rgba(255,215,0,0.95) 30%, rgba(0,122,255,0.95))',
+                  'linear-gradient(90deg, rgba(255,0,0,0.90), rgba(255,0,255,0.95) 30%, rgba(0,122,255,0.95))',
               }}
             >
               Jetzt Termin anfragen
@@ -67,26 +137,40 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          {[
-            { label: 'Fahrzeuglackierungen', Icon: Car },
-            { label: 'Unfallinstandsetzung', Icon: Wrench },
-            { label: 'Smart Repair', Icon: Sparkles },
-            { label: 'Oldtimer-Restaurierung', Icon: Shield },
-          ].map(({ label, Icon }) => (
-            <div
-              key={label}
-              className="group relative rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
-            >
-              <div className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                   style={{ background: 'linear-gradient(90deg, rgba(255,0,0,0.25), rgba(255,215,0,0.25), rgba(0,122,255,0.25))' }} />
-              <div className="relative z-10 px-5 py-4 flex items-center gap-3">
-                <Icon className="w-6 h-6 text-brand-gold" />
-                <span className="text-white font-medium">{label}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        {categories.length > 0 && (
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {categories.map((category) => {
+              const Icon = categoryIcon(category.id, category.label);
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => {
+                    if (onOpenGalleryPage) {
+                      onOpenGalleryPage(category.id);
+                    } else {
+                      scrollToSection('gallery');
+                    }
+                  }}
+                  className="group relative rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-left"
+                >
+                  <div
+                    className="absolute -inset-px rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background:
+                        'linear-gradient(90deg, rgba(255,0,0,0.25), rgba(255,0,255,0.25), rgba(0,122,255,0.25))',
+                    }}
+                  />
+                  <div className="relative z-10 px-5 py-4 flex items-center gap-3">
+                    <Icon className="w-6 h-6 text-brand-gold" />
+                    <span className="text-white font-medium">{category.label}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        
 
         <motion.div
           initial={{ opacity: 0 }}

@@ -8,6 +8,7 @@ import {
   Image as ImageIcon,
   Phone,
 } from 'lucide-react';
+import { galleryImages } from 'virtual:gallery-images';
 
 type NavigationProps = {
   onNavigateToSection?: (sectionId: string) => void;
@@ -90,16 +91,37 @@ const Navigation = ({
     { id: 'contact', label: 'Kontakt', Icon: Phone },
   ];
 
-  const galleryCategories = [
-    { id: 'fahrzeuglackierung', label: 'Fahrzeuglackierung' },
-    { id: 'unfallinstandsetzung', label: 'Unfallinstandsetzung' },
-    { id: 'oldtimerrestaurierung', label: 'Oldtimerrestaurierung' },
-    { id: 'smart-repair', label: 'Smart Repair' },
-    { id: 'matt-lackierung', label: 'Matt Lackierung' },
-    { id: 'industrieteilelackierung', label: 'Industrieteilelackierung' },
-    { id: 'custom-designs', label: 'Custom Designs' },
-    { id: 'motorrad-und-rollerlackierung', label: 'Motorrad- & Rollerlackierung' },
-  ];
+  const slugify = (value: string) =>
+    value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/&/g, 'und')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-+/g, '-');
+
+  const galleryCategories = (() => {
+    const set = new Map<string, string>();
+    for (const image of galleryImages) {
+      const decoded = decodeURI(image);
+      const marker = '/images/';
+      const idx = decoded.indexOf(marker);
+      const relative = idx >= 0 ? decoded.slice(idx + marker.length) : decoded;
+      const parts = relative.split('/').filter(Boolean);
+      const gallerieIdx = parts.findIndex((p) => slugify(p) === 'gallerie');
+      const catSeg = gallerieIdx >= 0 && parts[gallerieIdx + 1] ? parts[gallerieIdx + 1] : parts[0] || '';
+      if (!catSeg) continue;
+      const id = slugify(catSeg);
+      const label = catSeg
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+      if (!set.has(id)) set.set(id, label);
+    }
+    return Array.from(set.entries()).map(([id, label]) => ({ id, label })).sort((a, b) => a.label.localeCompare(b.label));
+  })();
 
   return (
     <nav
@@ -121,7 +143,11 @@ const Navigation = ({
             </a>
             <button
               onClick={() => navigateToSection('contact')}
-              className="px-4 py-1.5 rounded-full text-white font-semibold bg-gradient-to-r from-brand-gold/90 via-amber-400 to-brand-blue hover:brightness-110 transition-all"
+              className="px-4 py-1.5 rounded-full text-white font-semibold hover:brightness-110 transition-all"
+              style={{
+                background:
+                  'linear-gradient(90deg, rgba(255,0,0,0.90), rgba(255,0,255,0.95) 30%, rgba(0,122,255,0.95))',
+              }}
             >
               Jetzt Termin vereinbaren
             </button>
@@ -162,7 +188,7 @@ const Navigation = ({
                       className="absolute -inset-px rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       style={{
                         background:
-                          'linear-gradient(90deg, rgba(255,80,0,0.22), rgba(255,215,0,0.22), rgba(0,122,255,0.22))',
+                          'linear-gradient(90deg, rgba(255,0,0,0.22), rgba(255,0,255,0.22), rgba(0,122,255,0.22))',
                       }}
                     />
                   </button>
@@ -181,12 +207,18 @@ const Navigation = ({
                       className="absolute -inset-px rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       style={{
                         background:
-                          'linear-gradient(90deg, rgba(255,80,0,0.22), rgba(255,215,0,0.22), rgba(0,122,255,0.22))',
+                          'linear-gradient(90deg, rgba(255,0,0,0.22), rgba(255,0,255,0.22), rgba(0,122,255,0.22))',
                       }}
                     />
                   </button>
 
-                  <div className="absolute left-0 top-full mt-2 w-[320px] rounded-2xl bg-brand-dark/98 backdrop-blur-md border border-white/15 shadow-2xl overflow-hidden opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto z-[120]">
+                  <div
+                    className="absolute left-0 top-full w-[320px] rounded-2xl bg-black/95 backdrop-blur-md border border-white/15 overflow-hidden opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto z-[120]"
+                    style={{
+                      boxShadow:
+                        '0 24px 70px rgba(0,0,0,0.75), 0 0 0 9999px rgba(0,0,0,0.35)',
+                    }}
+                  >
                     <div className="p-2">
                       {galleryCategories.map((category) => (
                         <button

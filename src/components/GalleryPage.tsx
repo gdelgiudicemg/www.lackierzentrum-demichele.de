@@ -2,22 +2,9 @@ import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
 import { galleryImages } from 'virtual:gallery-images';
 
-const galleryCategories = [
-  { id: 'fahrzeuglackierung', label: 'Fahrzeuglackierung' },
-  { id: 'unfallinstandsetzung', label: 'Unfallinstandsetzung' },
-  { id: 'oldtimerrestaurierung', label: 'Oldtimerrestaurierung' },
-  { id: 'smart-repair', label: 'Smart Repair' },
-  { id: 'matt-lackierung', label: 'Matt Lackierung' },
-  { id: 'industrieteilelackierung', label: 'Industrieteilelackierung' },
-  { id: 'custom-designs', label: 'Custom Designs' },
-  { id: 'motorrad-und-rollerlackierung', label: 'Motorrad- & Rollerlackierung' },
-] as const;
-
-type GalleryCategoryId = (typeof galleryCategories)[number]['id'];
-
 type GalleryPageProps = {
   onBack: () => void;
-  initialCategoryId?: GalleryCategoryId;
+  initialCategoryId?: string;
 };
 
 const slugify = (value: string) =>
@@ -31,9 +18,33 @@ const slugify = (value: string) =>
     .replace(/-+/g, '-');
 
 const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
-  const [activeCategoryId, setActiveCategoryId] = useState<GalleryCategoryId>(
-    initialCategoryId ?? 'fahrzeuglackierung'
-  );
+  const categories = useMemo(() => {
+    const set = new Map<string, string>();
+    for (const image of galleryImages) {
+      const decoded = decodeURI(image);
+      const marker = '/images/';
+      const idx = decoded.indexOf(marker);
+      const relative = idx >= 0 ? decoded.slice(idx + marker.length) : decoded;
+      const parts = relative.split('/').filter(Boolean);
+      const gallerieIdx = parts.findIndex((p) => slugify(p) === 'gallerie');
+      const catSeg = gallerieIdx >= 0 && parts[gallerieIdx + 1] ? parts[gallerieIdx + 1] : parts[0] || '';
+      if (!catSeg) continue;
+      const id = slugify(catSeg);
+      const label = catSeg
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\b\w/g, (c) => c.toUpperCase());
+      if (!set.has(id)) set.set(id, label);
+    }
+    return Array.from(set.entries()).map(([id, label]) => ({ id, label })).sort((a, b) => a.label.localeCompare(b.label));
+  }, []);
+
+  const [activeCategoryId, setActiveCategoryId] = useState<string>(() => {
+    const ids = new Set(categories.map((c) => c.id));
+    if (initialCategoryId && ids.has(slugify(initialCategoryId))) return slugify(initialCategoryId);
+    return categories[0]?.id ?? '';
+  });
 
   useEffect(() => {
     if (initialCategoryId) setActiveCategoryId(initialCategoryId);
@@ -45,37 +56,30 @@ const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
   }, []);
 
   const imagesByCategory = useMemo(() => {
-    const categoryIds = new Set(galleryCategories.map((c) => c.id));
-    const byCategory = Object.fromEntries(
-      galleryCategories.map((c) => [c.id, [] as string[]])
-    ) as Record<GalleryCategoryId, string[]>;
-
+    const byCategory = Object.fromEntries(categories.map((c) => [c.id, [] as string[]])) as Record<string, string[]>;
     for (const image of galleryImages) {
       const decoded = decodeURI(image);
       const marker = '/images/';
       const markerIndex = decoded.indexOf(marker);
       const relative = markerIndex >= 0 ? decoded.slice(markerIndex + marker.length) : decoded;
       const parts = relative.split('/').filter(Boolean);
-      const folder = parts.length > 1 ? parts[0] : '';
-      const folderSlug = folder ? slugify(folder) : '';
-
-      const categoryId = categoryIds.has(folderSlug as GalleryCategoryId)
-        ? (folderSlug as GalleryCategoryId)
-        : 'fahrzeuglackierung';
-
-      byCategory[categoryId].push(image);
+      const gallerieIdx = parts.findIndex((p) => slugify(p) === 'gallerie');
+      const catSeg = gallerieIdx >= 0 && parts[gallerieIdx + 1] ? parts[gallerieIdx + 1] : parts[0] || '';
+      const categoryId = slugify(catSeg);
+      if (categoryId && byCategory[categoryId]) byCategory[categoryId].push(image);
     }
-
     return byCategory;
-  }, []);
+  }, [categories]);
 
   const galleryItems = useMemo(() => {
-    const activeImages = imagesByCategory[activeCategoryId];
-    return activeImages.map((image, index) => ({
+    const activeImages = imagesByCategory[activeCategoryId] || [];
+    const activeLabel =
+      categories.find((c) => c.id === activeCategoryId)?.label || 'Galerie';
+    return activeImages.map((image) => ({
       image,
-      title: `Foto ${(index + 1).toString().padStart(2, '0')}`,
+      title: activeLabel,
     }));
-  }, [activeCategoryId, imagesByCategory]);
+  }, [activeCategoryId, imagesByCategory, categories]);
 
   const gridVariants = {
     hidden: {},
@@ -113,7 +117,7 @@ const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
         </div>
 
         <div className="flex gap-2 overflow-x-auto pb-2 mb-8">
-          {galleryCategories.map((category) => {
+          {categories.map((category) => {
             const isActive = category.id === activeCategoryId;
             return (
               <button

@@ -16,24 +16,48 @@ const BeforeAfter = ({
   title: string;
 }) => {
   const [value, setValue] = useState(50);
+  const [beforeIndex, setBeforeIndex] = useState(0);
+  const [afterIndex, setAfterIndex] = useState(0);
+  const beforeCandidates = (() => {
+    const decoded = decodeURI(beforeSrc);
+    const base = decoded.replace(/\.[^./]+$/, '');
+    const exts = ['jpeg', 'jpg', 'png', 'webp', 'avif', 'gif'];
+    return exts.map((ext) => encodeURI(`${base}.${ext}`));
+  })();
+  const afterCandidates = (() => {
+    const decoded = decodeURI(afterSrc);
+    const base = decoded.replace(/\.[^./]+$/, '');
+    const altBase = base.replace(/post/i, 'dopo');
+    const bases = [base, altBase];
+    const exts = ['jpeg', 'jpg', 'png', 'webp', 'avif', 'gif'];
+    const list: string[] = [];
+    for (const b of bases) {
+      for (const ext of exts) list.push(encodeURI(`${b}.${ext}`));
+    }
+    return list;
+  })();
+  const beforeSrcResolved = beforeCandidates[Math.min(beforeIndex, beforeCandidates.length - 1)];
+  const afterSrcResolved = afterCandidates[Math.min(afterIndex, afterCandidates.length - 1)];
   return (
     <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg overflow-hidden">
       <div className="relative aspect-video">
         <img
-          src={afterSrc}
+          src={afterSrcResolved}
           alt={`${title} - Nachher`}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover"
+          onError={() => setAfterIndex((i) => i + 1)}
         />
         <div
           className="absolute inset-0"
           style={{ clipPath: `inset(0 ${100 - value}% 0 0)` }}
         >
           <img
-            src={beforeSrc}
+            src={beforeSrcResolved}
             alt={`${title} - Vorher`}
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
+            onError={() => setBeforeIndex((i) => i + 1)}
           />
         </div>
         <div className="absolute inset-0 pointer-events-none">
@@ -71,33 +95,14 @@ const Gallery = ({ onOpenGalleryPage }: GalleryProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const beforeAfterPairs = [
-    {
-      before: encodeURI('/images/1pre.jpeg'),
-      after: encodeURI('/images/1 dopo.jpeg'),
-      title: 'Arbeit 01',
-    },
-    {
-      before: encodeURI('/images/2 pre.jpeg'),
-      after: encodeURI('/images/2 dopo.jpeg'),
-      title: 'Arbeit 02',
-    },
-    {
-      before: encodeURI('/images/3 pre.jpeg'),
-      after: encodeURI('/images/3 dopo.jpeg'),
-      title: 'Arbeit 03',
-    },
-    {
-      before: encodeURI('/images/4 pre.jpeg'),
-      after: encodeURI('/images/4 dopo.jpeg'),
-      title: 'Arbeit 04',
-    },
-    {
-      before: encodeURI('/images/5 pre.jpeg'),
-      after: encodeURI('/images/5 dopo.jpeg'),
-      title: 'Arbeit 05',
-    },
-  ];
+  const beforeAfterPairs = Array.from({ length: 6 }, (_, idx) => {
+    const i = idx + 1;
+    return {
+      before: encodeURI(`/images/foto slide/${i} pre.jpeg`),
+      after: encodeURI(`/images/foto slide/${i} post.jpeg`),
+      title: `Arbeit ${String(i).padStart(2, '0')}`,
+    };
+  });
 
   const gridVariants = {
     hidden: {},
@@ -169,7 +174,7 @@ const Gallery = ({ onOpenGalleryPage }: GalleryProps) => {
             className="text-white px-8 py-4 rounded-full text-lg font-semibold transform hover:scale-105 transition-all duration-300 shadow-2xl"
             style={{
               background:
-                'linear-gradient(90deg, rgba(255,80,0,0.9), rgba(255,215,0,0.95) 30%, rgba(0,122,255,0.95))',
+                'linear-gradient(90deg, rgba(255,0,0,0.90), rgba(255,0,255,0.95) 30%, rgba(0,122,255,0.95))',
             }}
           >
             Mehr Bilder ansehen

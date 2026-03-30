@@ -6,7 +6,6 @@ import {
   Car,
   Wrench,
   Shield,
-  Settings,
   Sparkles,
   Bike,
   Clock,
@@ -60,18 +59,13 @@ const Services = () => {
         'Fachgerechte Reparatur von Unfallschäden mit Versicherungsabwicklung',
     },
     {
-      icon: Settings,
-      title: 'Karosseriearbeiten',
-      description: 'Präzise Karosseriereparaturen und Blecharbeiten',
-    },
-    {
       icon: Sparkles,
       title: 'Smart Repair',
       description:
         'Schnelle und kostengünstige Reparatur kleiner Schäden',
     },
     {
-      icon: Shield,
+      icon: Wrench,
       title: 'Kratzer- & Dellenbeseitigung',
       description: 'Professionelle Beseitigung von Kratzern und Dellen',
     },
@@ -93,7 +87,7 @@ const Services = () => {
         'Individuelle Lackierungen mit besonderen Effekten',
     },
     {
-      icon: Wrench,
+      icon: Cog,
       title: 'Industrielackierungen',
       description: 'Lackierung von Kleinteilen und Bauteilen',
     },
@@ -129,12 +123,12 @@ const Services = () => {
       description: 'Professionelle Aufbereitung für Leasingrückgaben',
     },
     {
-      icon: Palette,
+      icon: Car,
       title: 'Teilfolierungen',
       description: 'Hochwertige Folierungen für individuelle Akzente',
     },
     {
-      icon: Paintbrush,
+      icon: Palette,
       title: 'Design- & Individualfolierungen',
       description: 'Kreative Folierungen nach Ihren Wünschen',
     },
