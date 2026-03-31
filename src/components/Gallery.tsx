@@ -129,14 +129,14 @@ const Gallery = ({ onOpenGalleryPage }: GalleryProps) => {
     <section
       id="gallery"
       ref={ref}
-      className="py-20 bg-gradient-to-b from-brand-dark/50 via-black/30 to-brand-dark/55"
+      className="pt-[calc(5rem+2cm)] pb-[calc(5rem+2cm)] bg-gradient-to-b from-brand-dark/50 via-black/30 to-brand-dark/55"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
           animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-[calc(4rem+2cm)]"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             Unsere Arbeiten

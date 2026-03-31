@@ -2,18 +2,176 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import {
-  Paintbrush,
   Car,
   Wrench,
-  Shield,
   Sparkles,
-  Bike,
   Clock,
   Palette,
   Cog,
-  Gem,
-  Package,
 } from 'lucide-react';
+
+const SprayGunIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <path d="M4 10h10l2-2h4v4h-4l-2-2H4z" />
+    <path d="M9 10v-3h5" />
+    <path d="M10 12v3c0 1.7 1.3 3 3 3h2" />
+    <path d="M16 12v2" />
+    <path d="M20 6v-1" />
+    <path d="M18 6v-1" />
+    <path d="M22 6v-1" />
+  </svg>
+);
+
+const DoorIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <path d="M4 14l1-3a3 3 0 0 1 2.8-2h8.4a3 3 0 0 1 2.8 2l1 3v4H4v-4z" />
+    <path d="M8 18h8" />
+    <path d="M12 9v9" />
+    <path d="M14.5 14h.01" />
+    <circle cx="8" cy="18" r="1" />
+    <circle cx="16" cy="18" r="1" />
+  </svg>
+);
+
+const ShinyCarIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <path d="M6 16l1-4c.3-1.1 1.3-2 2.5-2h5c1.2 0 2.2.9 2.5 2l1 4" />
+    <path d="M5 16h14" />
+    <path d="M7 16v2" />
+    <path d="M17 16v2" />
+    <path d="M8 18h2" />
+    <path d="M14 18h2" />
+    <path d="M18.5 6.5l.5-1.5.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5z" />
+    <path d="M16.5 4.5l.25-.75.25.75.75.25-.75.25-.25.75-.25-.75-.75-.25z" />
+  </svg>
+);
+
+const RainIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <path d="M7 15c-1.7 0-3-1.3-3-3 0-1.6 1.2-2.9 2.7-3A4.5 4.5 0 0 1 11 6c1.8 0 3.4 1.1 4.1 2.7.3-.1.6-.1.9-.1 2 0 3.5 1.5 3.5 3.4S18.1 15 16.2 15H7z" />
+    <path d="M8 18l-1 2" />
+    <path d="M12 18l-1 2" />
+    <path d="M16 18l-1 2" />
+  </svg>
+);
+
+const FilmSheetIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <path d="M7 4h10a2 2 0 0 1 2 2v12.5a1.5 1.5 0 0 1-2.4 1.2l-2.1-1.6-2.1 1.6a1.5 1.5 0 0 1-1.8 0l-2.1-1.6-2.1 1.6A1.5 1.5 0 0 1 5 18.5V6a2 2 0 0 1 2-2z" />
+    <path d="M9 8h6" />
+    <path d="M9 12h6" />
+  </svg>
+);
+
+const BumperIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <path d="M4 13c0-2 1.6-3.5 3.6-3.5h8.8c2 0 3.6 1.5 3.6 3.5v1H4v-1z" />
+    <path d="M5 14l1.2 4h11.6L19 14" />
+    <path d="M8 12h8" />
+    <path d="M7.5 16.5h0.01" />
+    <path d="M16.5 16.5h0.01" />
+  </svg>
+);
+
+const RiderBikeIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <circle cx="7" cy="17" r="3" />
+    <circle cx="17" cy="17" r="3" />
+    <circle cx="12" cy="6" r="1.5" />
+    <path d="M12 7.5l-1.5 3.5 3 1" />
+    <path d="M14 9.5h2l2 3.5" />
+    <path d="M12 10h3l-2 6" />
+    <path d="M10.5 11l-3.5 6" />
+    <path d="M15 6.5l-1 3" />
+  </svg>
+);
+
+const WheelIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-hidden
+  >
+    <circle cx="12" cy="12" r="8" />
+    <circle cx="12" cy="12" r="2" />
+    <path d="M12 4v6" />
+    <path d="M12 14v6" />
+    <path d="M4 12h6" />
+    <path d="M14 12h6" />
+    <path d="M6.8 6.8l4.2 4.2" />
+    <path d="M13 13l4.2 4.2" />
+    <path d="M17.2 6.8L13 11" />
+    <path d="M11 13l-4.2 4.2" />
+  </svg>
+);
 
 const Services = () => {
   const ref = useRef(null);
@@ -41,7 +199,7 @@ const Services = () => {
 
   const services = [
     {
-      icon: Paintbrush,
+      icon: SprayGunIcon,
       title: 'Fahrzeuglackierungen aller Art',
       description:
         'Professionelle Lackierungen für alle Fahrzeugtypen mit modernster Technik',
@@ -53,13 +211,7 @@ const Services = () => {
         'Von einzelnen Bauteilen bis zur vollständigen Neulackierung Ihres Fahrzeugs',
     },
     {
-      icon: Wrench,
-      title: 'Unfallinstandsetzung',
-      description:
-        'Fachgerechte Reparatur von Unfallschäden mit Versicherungsabwicklung',
-    },
-    {
-      icon: Sparkles,
+      icon: DoorIcon,
       title: 'Smart Repair',
       description:
         'Schnelle und kostengünstige Reparatur kleiner Schäden',
@@ -70,13 +222,13 @@ const Services = () => {
       description: 'Professionelle Beseitigung von Kratzern und Dellen',
     },
     {
-      icon: Cog,
+      icon: WheelIcon,
       title: 'Felgenreparatur & Felgenlackierung',
       description:
         'Reparatur und hochwertige Lackierung Ihrer Felgen',
     },
     {
-      icon: Package,
+      icon: BumperIcon,
       title: 'Kunststoffreparaturen',
       description: 'Fachgerechte Reparatur von Kunststoffteilen',
     },
@@ -92,7 +244,7 @@ const Services = () => {
       description: 'Lackierung von Kleinteilen und Bauteilen',
     },
     {
-      icon: Bike,
+      icon: RiderBikeIcon,
       title: 'Motorrad- & Speziallackierungen',
       description: 'Spezialisierte Lackierungen für Motorräder',
     },
@@ -108,12 +260,12 @@ const Services = () => {
       description: 'Professionelle Aufbereitung Ihres Fahrzeugs',
     },
     {
-      icon: Gem,
+      icon: ShinyCarIcon,
       title: 'Polieren & Hochglanzfinish',
       description: 'Perfekter Glanz durch professionelles Polieren',
     },
     {
-      icon: Shield,
+      icon: RainIcon,
       title: 'Lackversiegelung',
       description: 'Langanhaltender Schutz durch Keramikversiegelung',
     },
@@ -123,14 +275,9 @@ const Services = () => {
       description: 'Professionelle Aufbereitung für Leasingrückgaben',
     },
     {
-      icon: Car,
+      icon: FilmSheetIcon,
       title: 'Teilfolierungen',
       description: 'Hochwertige Folierungen für individuelle Akzente',
-    },
-    {
-      icon: Palette,
-      title: 'Design- & Individualfolierungen',
-      description: 'Kreative Folierungen nach Ihren Wünschen',
     },
   ];
 
@@ -138,14 +285,14 @@ const Services = () => {
     <section
       id="services"
       ref={ref}
-      className="py-20 bg-gradient-to-b from-brand-dark/50 via-black/30 to-brand-dark/55"
+      className="pt-[calc(5rem+2cm)] pb-[calc(5rem+2cm)] bg-gradient-to-b from-brand-dark/50 via-black/30 to-brand-dark/55"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-[calc(4rem+2cm)]"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             Unsere Leistungen
@@ -154,7 +301,7 @@ const Services = () => {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Vom Smart Repair bis zur Komplettlackierung – wir bieten Ihnen das
             komplette Spektrum professioneller Fahrzeuglackierung und
-            Karosseriearbeit in Ellwangen
+            sowie Reparatur kleiner Lack- und Karosserieschäden in Ellwangen
           </p>
         </motion.div>
 

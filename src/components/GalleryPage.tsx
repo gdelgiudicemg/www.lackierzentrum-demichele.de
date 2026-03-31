@@ -17,8 +17,40 @@ const slugify = (value: string) =>
     .replace(/^-+|-+$/g, '')
     .replace(/-+/g, '-');
 
+const canonicalizeCategoryId = (id: string) => {
+  const slug = id.toLowerCase();
+  if (slug === 'fahrzeuglackierungen') return 'fahrzeuglackierung';
+  if (slug === 'oldtimer-restaurierung') return 'oldtimerrestaurierung';
+  if (slug === 'matt-lackierungen') return 'matt-lackierung';
+  if (slug === 'zweiradlackierung') return 'motorrad-und-rollerlackierung';
+  if (slug === 'custom-deisgn' || slug === 'custom-design') return 'custom-designs';
+  return slug;
+};
+
 const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
   const categories = useMemo(() => {
+    const preferredOrder = [
+      'fahrzeuglackierung',
+      'oldtimerrestaurierung',
+      'smart-repair',
+      'matt-lackierung',
+      'industrieteilelackierung',
+      'motorrad-und-rollerlackierung',
+      'custom-designs',
+    ] as const;
+    const preferredIndex = new Map<string, number>(
+      preferredOrder.map((id, idx) => [id, idx])
+    );
+    const labelOverrides: Record<string, string> = {
+      fahrzeuglackierung: 'Fahrzeuglackierung',
+      oldtimerrestaurierung: 'Oldtimerrestaurierung',
+      'smart-repair': 'Smart Repair',
+      'matt-lackierung': 'Matt Lackierung',
+      industrieteilelackierung: 'Industrieteilelackierung',
+      'motorrad-und-rollerlackierung': 'Motorrad- & Rollerlackierung',
+      'custom-designs': 'Custom Designs',
+    };
+
     const set = new Map<string, string>();
     for (const image of galleryImages) {
       const decoded = decodeURI(image);
@@ -29,7 +61,7 @@ const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
       const gallerieIdx = parts.findIndex((p) => slugify(p) === 'gallerie');
       const catSeg = gallerieIdx >= 0 && parts[gallerieIdx + 1] ? parts[gallerieIdx + 1] : parts[0] || '';
       if (!catSeg) continue;
-      const id = slugify(catSeg);
+      const id = canonicalizeCategoryId(slugify(catSeg));
       const label = catSeg
         .replace(/[-_]+/g, ' ')
         .replace(/\s+/g, ' ')
@@ -37,7 +69,16 @@ const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
         .replace(/\b\w/g, (c) => c.toUpperCase());
       if (!set.has(id)) set.set(id, label);
     }
-    return Array.from(set.entries()).map(([id, label]) => ({ id, label })).sort((a, b) => a.label.localeCompare(b.label));
+    return Array.from(set.entries())
+      .map(([id, label]) => ({ id, label: labelOverrides[id] ?? label }))
+      .sort((a, b) => {
+        const ai = preferredIndex.get(a.id);
+        const bi = preferredIndex.get(b.id);
+        if (ai !== undefined && bi !== undefined) return ai - bi;
+        if (ai !== undefined) return -1;
+        if (bi !== undefined) return 1;
+        return a.label.localeCompare(b.label);
+      });
   }, []);
 
   const [activeCategoryId, setActiveCategoryId] = useState<string>(() => {
@@ -47,7 +88,7 @@ const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
   });
 
   useEffect(() => {
-    if (initialCategoryId) setActiveCategoryId(initialCategoryId);
+    if (initialCategoryId) setActiveCategoryId(canonicalizeCategoryId(slugify(initialCategoryId)));
   }, [initialCategoryId]);
 
   useEffect(() => {
@@ -65,7 +106,7 @@ const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
       const parts = relative.split('/').filter(Boolean);
       const gallerieIdx = parts.findIndex((p) => slugify(p) === 'gallerie');
       const catSeg = gallerieIdx >= 0 && parts[gallerieIdx + 1] ? parts[gallerieIdx + 1] : parts[0] || '';
-      const categoryId = slugify(catSeg);
+      const categoryId = canonicalizeCategoryId(slugify(catSeg));
       if (categoryId && byCategory[categoryId]) byCategory[categoryId].push(image);
     }
     return byCategory;

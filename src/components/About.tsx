@@ -60,14 +60,14 @@ const About = () => {
     <section
       id="about"
       ref={ref}
-      className="py-20 bg-gradient-to-b from-brand-dark via-black to-brand-dark"
+      className="pt-[calc(5rem+2cm)] pb-[calc(5rem+2cm)] bg-gradient-to-b from-brand-dark via-black to-brand-dark"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate={isInView ? 'show' : 'hidden'}
-          className="text-center mb-16"
+          className="text-center mb-[calc(4rem+2cm)]"
         >
           <motion.img
             src={paintLogoSrc}
