@@ -27,13 +27,15 @@ const SprayGunIcon = ({ className }: { className?: string }) => (
     className={className}
     aria-hidden
   >
-    <path d="M4 10h10l2-2h4v4h-4l-2-2H4z" />
-    <path d="M9 10v-3h5" />
-    <path d="M10 12v3c0 1.7 1.3 3 3 3h2" />
-    <path d="M16 12v2" />
-    <path d="M20 6v-1" />
-    <path d="M18 6v-1" />
-    <path d="M22 6v-1" />
+    <path d="M10 4h4l1 4H9l1-4z" />
+    <path d="M5 10h10l2-2h4v4h-4l-2-2H5z" />
+    <path d="M9 12v4c0 1.7 1.3 3 3 3h2" />
+    <path d="M12 12l-1.5 1.5" />
+    <path d="M12 19v2" />
+    <path d="M10 21h4" />
+    <path d="M21 9l1-1" />
+    <path d="M22 11h1" />
+    <path d="M21 13l1 1" />
   </svg>
 );
 
@@ -57,7 +59,7 @@ const DoorIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const RiderBikeIcon = ({ className }: { className?: string }) => (
+const MotorcycleIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
@@ -70,12 +72,11 @@ const RiderBikeIcon = ({ className }: { className?: string }) => (
   >
     <circle cx="7" cy="17" r="3" />
     <circle cx="17" cy="17" r="3" />
-    <circle cx="12" cy="6" r="1.5" />
-    <path d="M12 7.5l-1.5 3.5 3 1" />
-    <path d="M14 9.5h2l2 3.5" />
-    <path d="M12 10h3l-2 6" />
-    <path d="M10.5 11l-3.5 6" />
-    <path d="M15 6.5l-1 3" />
+    <path d="M9.5 17h5" />
+    <path d="M7 14l2-3h4l3 2" />
+    <path d="M14 11l2-3h3" />
+    <path d="M9 11l-2-2" />
+    <path d="M5 12h3" />
   </svg>
 );
 
@@ -169,13 +170,13 @@ const Hero = ({ onOpenGalleryPage }: HeroProps) => {
     if (slug.includes('matt-lackierung')) return Paintbrush;
     if (slug.includes('industrieteilelackierung')) return Cog;
     if (slug.includes('custom-designs')) return Palette;
-    if (slug.includes('motorrad-und-rollerlackierung')) return RiderBikeIcon;
+    if (slug.includes('motorrad-und-rollerlackierung')) return MotorcycleIcon;
     const text = `${id} ${label}`.toLowerCase();
     if (text.includes('auto') || text.includes('car')) return Car;
     if (text.includes('karosserie') || text.includes('instand')) return Wrench;
     if (text.includes('matt') || text.includes('lack')) return Paintbrush;
     if (text.includes('design') || text.includes('effekt')) return Palette;
-    if (text.includes('motor') || text.includes('bike')) return RiderBikeIcon;
+    if (text.includes('motor') || text.includes('bike')) return MotorcycleIcon;
     if (text.includes('oldtimer') || text.includes('klassik') || text.includes('classic')) return Clock;
     return Sparkles;
   };
@@ -206,11 +207,11 @@ const Hero = ({ onOpenGalleryPage }: HeroProps) => {
           <h1 className="mt-[2cm] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
             Jede Lackierung ein Meisterstück.
             <br />
-            <span className="block mt-[2cm] bg-gradient-to-r from-brand-red via-brand-gold/90 to-brand-blue bg-clip-text text-transparent">
+            <span className="block mt-[1cm] bg-gradient-to-r from-brand-red via-brand-gold/90 to-brand-blue bg-clip-text text-transparent">
               Präzision, Glanz und Perfektion!
             </span>
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 mb-4 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-300 mt-[1cm] mb-4 max-w-3xl mx-auto">
             Ihr Lackierzentrum in Ellwangen
           </p>
           <p className="text-lg sm:text-xl text-gray-400 mb-12 max-w-3xl mx-auto">

@@ -21,13 +21,15 @@ const SprayGunIcon = ({ className }: { className?: string }) => (
     className={className}
     aria-hidden
   >
-    <path d="M4 10h10l2-2h4v4h-4l-2-2H4z" />
-    <path d="M9 10v-3h5" />
-    <path d="M10 12v3c0 1.7 1.3 3 3 3h2" />
-    <path d="M16 12v2" />
-    <path d="M20 6v-1" />
-    <path d="M18 6v-1" />
-    <path d="M22 6v-1" />
+    <path d="M10 4h4l1 4H9l1-4z" />
+    <path d="M5 10h10l2-2h4v4h-4l-2-2H5z" />
+    <path d="M9 12v4c0 1.7 1.3 3 3 3h2" />
+    <path d="M12 12l-1.5 1.5" />
+    <path d="M12 19v2" />
+    <path d="M10 21h4" />
+    <path d="M21 9l1-1" />
+    <path d="M22 11h1" />
+    <path d="M21 13l1 1" />
   </svg>
 );
 
@@ -51,7 +53,7 @@ const DoorIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const ShinyCarIcon = ({ className }: { className?: string }) => (
+const DiamondIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
@@ -62,14 +64,9 @@ const ShinyCarIcon = ({ className }: { className?: string }) => (
     className={className}
     aria-hidden
   >
-    <path d="M6 16l1-4c.3-1.1 1.3-2 2.5-2h5c1.2 0 2.2.9 2.5 2l1 4" />
-    <path d="M5 16h14" />
-    <path d="M7 16v2" />
-    <path d="M17 16v2" />
-    <path d="M8 18h2" />
-    <path d="M14 18h2" />
-    <path d="M18.5 6.5l.5-1.5.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5z" />
-    <path d="M16.5 4.5l.25-.75.25.75.75.25-.75.25-.25.75-.25-.75-.75-.25z" />
+    <path d="M12 3l4 5-4 13-4-13 4-5z" />
+    <path d="M8 8h8" />
+    <path d="M12 3L8 8l4 5 4-5-4-5z" />
   </svg>
 );
 
@@ -105,25 +102,6 @@ const FilmSheetIcon = ({ className }: { className?: string }) => (
     <path d="M7 4h10a2 2 0 0 1 2 2v12.5a1.5 1.5 0 0 1-2.4 1.2l-2.1-1.6-2.1 1.6a1.5 1.5 0 0 1-1.8 0l-2.1-1.6-2.1 1.6A1.5 1.5 0 0 1 5 18.5V6a2 2 0 0 1 2-2z" />
     <path d="M9 8h6" />
     <path d="M9 12h6" />
-  </svg>
-);
-
-const BumperIcon = ({ className }: { className?: string }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    aria-hidden
-  >
-    <path d="M4 13c0-2 1.6-3.5 3.6-3.5h8.8c2 0 3.6 1.5 3.6 3.5v1H4v-1z" />
-    <path d="M5 14l1.2 4h11.6L19 14" />
-    <path d="M8 12h8" />
-    <path d="M7.5 16.5h0.01" />
-    <path d="M16.5 16.5h0.01" />
   </svg>
 );
 
@@ -228,7 +206,7 @@ const Services = () => {
         'Reparatur und hochwertige Lackierung Ihrer Felgen',
     },
     {
-      icon: BumperIcon,
+      icon: Car,
       title: 'Kunststoffreparaturen',
       description: 'Fachgerechte Reparatur von Kunststoffteilen',
     },
@@ -260,7 +238,7 @@ const Services = () => {
       description: 'Professionelle Aufbereitung Ihres Fahrzeugs',
     },
     {
-      icon: ShinyCarIcon,
+      icon: DiamondIcon,
       title: 'Polieren & Hochglanzfinish',
       description: 'Perfekter Glanz durch professionelles Polieren',
     },
