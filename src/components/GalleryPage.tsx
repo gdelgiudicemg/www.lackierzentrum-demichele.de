@@ -47,7 +47,7 @@ const GalleryPage = ({ onBack, initialCategoryId }: GalleryPageProps) => {
       'smart-repair': 'Smart Repair',
       'matt-lackierung': 'Matt Lackierung',
       industrieteilelackierung: 'Industrieteilelackierung',
-      'motorrad-und-rollerlackierung': 'Motorrad- & Rollerlackierung',
+      'motorrad-und-rollerlackierung': 'Zweiradlackierung',
       'custom-designs': 'Custom Designs',
     };
 

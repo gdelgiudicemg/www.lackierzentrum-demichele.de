@@ -57,16 +57,49 @@ const DiamondIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
     className={className}
     aria-hidden
   >
-    <path d="M12 3l4 5-4 13-4-13 4-5z" />
-    <path d="M8 8h8" />
-    <path d="M12 3L8 8l4 5 4-5-4-5z" />
+    <defs>
+      <mask id="polierenDiamondMask" maskUnits="userSpaceOnUse">
+        <rect x="0" y="0" width="24" height="24" fill="black" />
+        <path d="M3 9L7 4H17L21 9L12 22L3 9Z" fill="white" />
+        <path
+          d="M3 10H21"
+          stroke="black"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M7 4L9.5 10L12 22"
+          stroke="black"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M17 4L14.5 10L12 22"
+          stroke="black"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 10V22"
+          stroke="black"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </mask>
+    </defs>
+    <rect
+      x="0"
+      y="0"
+      width="24"
+      height="24"
+      fill="currentColor"
+      mask="url(#polierenDiamondMask)"
+    />
   </svg>
 );
 
@@ -223,7 +256,7 @@ const Services = () => {
     },
     {
       icon: RiderBikeIcon,
-      title: 'Motorrad- & Speziallackierungen',
+      title: 'Zweiradlackierung',
       description: 'Spezialisierte Lackierungen für Motorräder',
     },
     {
