@@ -57,49 +57,19 @@ const DiamondIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
     aria-hidden
   >
-    <defs>
-      <mask id="polierenDiamondMask" maskUnits="userSpaceOnUse">
-        <rect x="0" y="0" width="24" height="24" fill="black" />
-        <path d="M3 9L7 4H17L21 9L12 22L3 9Z" fill="white" />
-        <path
-          d="M3 10H21"
-          stroke="black"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <path
-          d="M7 4L9.5 10L12 22"
-          stroke="black"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M17 4L14.5 10L12 22"
-          stroke="black"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 10V22"
-          stroke="black"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-      </mask>
-    </defs>
-    <rect
-      x="0"
-      y="0"
-      width="24"
-      height="24"
-      fill="currentColor"
-      mask="url(#polierenDiamondMask)"
-    />
+    <path d="M3 9l4-5h10l4 5-9 12-9-12z" />
+    <path d="M3 9h18" />
+    <path d="M7 4l3 5" />
+    <path d="M17 4l-3 5" />
+    <path d="M10 9l2 12" />
+    <path d="M14 9l-2 12" />
   </svg>
 );
 
@@ -151,12 +121,11 @@ const RiderBikeIcon = ({ className }: { className?: string }) => (
   >
     <circle cx="7" cy="17" r="3" />
     <circle cx="17" cy="17" r="3" />
-    <circle cx="12" cy="6" r="1.5" />
-    <path d="M12 7.5l-1.5 3.5 3 1" />
-    <path d="M14 9.5h2l2 3.5" />
-    <path d="M12 10h3l-2 6" />
-    <path d="M10.5 11l-3.5 6" />
-    <path d="M15 6.5l-1 3" />
+    <circle cx="12" cy="7" r="1.5" />
+    <path d="M11.4 8.4l-1.7 3.7 2.6 1.2" />
+    <path d="M13.6 10h2.2l1.9 3.3" />
+    <path d="M12.2 11.2h3.2l-2.2 5.8" />
+    <path d="M10.4 12.4l-3.4 4.6" />
   </svg>
 );
 

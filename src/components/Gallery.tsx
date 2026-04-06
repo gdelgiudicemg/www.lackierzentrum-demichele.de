@@ -38,7 +38,13 @@ const BeforeAfter = ({
   })();
   const beforeSrcResolved = beforeCandidates[Math.min(beforeIndex, beforeCandidates.length - 1)];
   const afterSrcResolved = afterCandidates[Math.min(afterIndex, afterCandidates.length - 1)];
+  const isSlide1 = /\/images\/foto slide\/1\s+pre\./i.test(decodeURI(beforeSrc));
   const isSlide6 = /\/images\/foto slide\/6\s+pre\./i.test(decodeURI(beforeSrc));
+  const imageFitClass = isSlide1
+    ? 'object-contain bg-black/40'
+    : isSlide6
+    ? 'object-contain'
+    : 'object-cover';
   return (
     <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg overflow-hidden">
       <div className="relative aspect-video">
@@ -46,7 +52,7 @@ const BeforeAfter = ({
           src={afterSrcResolved}
           alt={`${title} - Nachher`}
           loading="lazy"
-          className={`absolute inset-0 w-full h-full ${isSlide6 ? 'object-contain' : 'object-cover'}`}
+          className={`absolute inset-0 w-full h-full ${imageFitClass}`}
           onError={() => setAfterIndex((i) => i + 1)}
         />
         <div
@@ -57,7 +63,7 @@ const BeforeAfter = ({
             src={beforeSrcResolved}
             alt={`${title} - Vorher`}
             loading="lazy"
-            className={`absolute inset-0 w-full h-full ${isSlide6 ? 'object-contain' : 'object-cover'}`}
+            className={`absolute inset-0 w-full h-full ${imageFitClass}`}
             onError={() => setBeforeIndex((i) => i + 1)}
           />
         </div>

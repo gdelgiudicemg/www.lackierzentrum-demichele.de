@@ -196,11 +196,11 @@ const Navigation = ({
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-4 h-[74px] md:h-[78px] py-0">
+        <div className="flex items-center gap-4 h-[90px] md:h-[96px] py-0">
           {!hideLogo && (
             <button
               type="button"
-              className="flex-shrink-0 h-14 md:h-16 flex items-center"
+              className="flex-shrink-0 h-16 md:h-20 flex items-center"
               onClick={() => navigateToSection('hero')}
             >
               <img

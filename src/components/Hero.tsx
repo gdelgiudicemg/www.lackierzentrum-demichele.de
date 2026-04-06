@@ -72,11 +72,11 @@ const MotorcycleIcon = ({ className }: { className?: string }) => (
   >
     <circle cx="7" cy="17" r="3" />
     <circle cx="17" cy="17" r="3" />
-    <path d="M9.5 17h5" />
-    <path d="M7 14l2-3h4l3 2" />
-    <path d="M14 11l2-3h3" />
-    <path d="M9 11l-2-2" />
-    <path d="M5 12h3" />
+    <circle cx="12" cy="7" r="1.5" />
+    <path d="M11.4 8.4l-1.7 3.7 2.6 1.2" />
+    <path d="M13.6 10h2.2l1.9 3.3" />
+    <path d="M12.2 11.2h3.2l-2.2 5.8" />
+    <path d="M10.4 12.4l-3.4 4.6" />
   </svg>
 );
 
