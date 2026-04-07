@@ -228,7 +228,7 @@ const Hero = ({ onOpenGalleryPage }: HeroProps) => {
                   'linear-gradient(90deg, rgba(255,0,0,0.90), rgba(255,0,255,0.95) 30%, rgba(0,122,255,0.95))',
               }}
             >
-              Jetzt Termin anfragen
+              Jetzt Termin vereinbaren
             </button>
             <button
               onClick={() => scrollToSection('services')}
