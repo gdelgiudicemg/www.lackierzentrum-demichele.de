@@ -179,8 +179,8 @@ const Navigation = ({
             <span className="text-white/80">Ludwig-Lutz-Straße 29, 73479 Ellwangen</span>
           </div>
           <div className="flex items-center gap-6">
-            <a href="tel:+497961401887" className="hover:text-brand-gold transition-colors">
-              Telefon: 07961 401887
+            <a href="tel:07961950937099" className="hover:text-brand-gold transition-colors">
+              Telefon: 07961-95093 7099
             </a>
             <button
               onClick={() => navigateToSection('contact')}
