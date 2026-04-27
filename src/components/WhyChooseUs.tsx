@@ -39,7 +39,7 @@ const WhyChooseUs = () => {
       icon: Clock,
       title: 'Langjährige Erfahrung',
       description:
-        'Über 10 Jahre Erfahrung in der Fahrzeuglackierung und Karosseriearbeit',
+        'Über 10 Jahre Erfahrung in der Fahrzeuglackierung',
     },
     {
       icon: Target,

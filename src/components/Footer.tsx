@@ -1,9 +1,18 @@
 import { Mail, MapPin } from 'lucide-react';
 
-const Footer = () => {
+type FooterProps = {
+  onNavigateToSection?: (sectionId: string) => void;
+  onOpenImpressumPage?: () => void;
+};
+
+const Footer = ({ onNavigateToSection, onOpenImpressumPage }: FooterProps) => {
   const currentYear = new Date().getFullYear();
 
   const scrollToSection = (sectionId: string) => {
+    if (onNavigateToSection) {
+      onNavigateToSection(sectionId);
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -24,8 +33,8 @@ const Footer = () => {
               }}
             />
             <p className="text-gray-400 mb-4">
-              Ihr zertifizierter Meisterbetrieb für Fahrzeuglackierung und
-              Karosseriearbeit in Ellwangen.
+              Ihr zertifizierter Meisterbetrieb für Fahrzeuglackierung in
+              Ellwangen.
             </p>
           </div>
 
@@ -62,6 +71,16 @@ const Footer = () => {
                   className="text-gray-400 hover:text-brand-gold transition-colors"
                 >
                   Kontakt
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    onOpenImpressumPage?.();
+                  }}
+                  className="text-gray-400 hover:text-brand-gold transition-colors"
+                >
+                  Impressum
                 </button>
               </li>
             </ul>

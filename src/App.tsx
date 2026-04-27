@@ -12,11 +12,12 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import SplashLogo from './components/SplashLogo';
 import GalleryPage from './components/GalleryPage.tsx';
+import ImpressumPage from './components/ImpressumPage';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showContent, setShowContent] = useState(false);
-  const [page, setPage] = useState<'home' | 'gallery'>('home');
+  const [page, setPage] = useState<'home' | 'gallery' | 'impressum'>('home');
   const [galleryCategoryId, setGalleryCategoryId] = useState<string | undefined>(undefined);
   const backgroundSrc = encodeURI('/sfondo per sito.png');
   useEffect(() => {
@@ -38,7 +39,7 @@ function App() {
   }, [showSplash]);
 
   useEffect(() => {
-    if (page === 'gallery') {
+    if (page !== 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [page]);
@@ -53,6 +54,10 @@ function App() {
   const openGalleryPage = (categoryId?: string) => {
     setGalleryCategoryId(categoryId);
     setPage('gallery');
+  };
+
+  const openImpressumPage = () => {
+    setPage('impressum');
   };
 
   return (
@@ -102,7 +107,7 @@ function App() {
               <CTA />
               <Contact />
             </>
-          ) : (
+          ) : page === 'gallery' ? (
             <GalleryPage
               initialCategoryId={galleryCategoryId}
               onBack={() => {
@@ -114,8 +119,10 @@ function App() {
                 }, 0);
               }}
             />
+          ) : (
+            <ImpressumPage />
           )}
-          <Footer />
+          <Footer onNavigateToSection={navigateToSection} onOpenImpressumPage={openImpressumPage} />
         </motion.div>
       </div>
     </>

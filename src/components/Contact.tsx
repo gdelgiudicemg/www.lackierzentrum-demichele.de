@@ -161,8 +161,8 @@ const Contact = () => {
                 Lackierzentrum De Michele
               </h4>
               <p className="text-gray-400 mb-4">
-                Ihr zertifizierter Meisterbetrieb für Fahrzeuglackierung und
-                Karosseriearbeit in Ellwangen.
+                Ihr zertifizierter Meisterbetrieb für Fahrzeuglackierung in
+                Ellwangen.
               </p>
               <div className="space-y-3">
                 <motion.div

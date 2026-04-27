@@ -6,7 +6,10 @@ import { Award, Users, Wrench, Trophy } from 'lucide-react';
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const paintLogoSrc = '/standox.png';
+  const paintLogos = [
+    { src: encodeURI('/images/standox 1.png'), alt: 'Standox Partner' },
+    { src: encodeURI('/images/standox 2.PNG'), alt: 'Standox' },
+  ];
 
   const sectionVariants = {
     hidden: {},
@@ -69,19 +72,24 @@ const About = () => {
           animate={isInView ? 'show' : 'hidden'}
           className="text-center mb-[calc(4rem+2cm)]"
         >
-          <motion.img
-            src={paintLogoSrc}
-            alt="Standox"
-            className="mx-auto mb-6 h-24 sm:h-32 md:h-40 w-auto max-w-[420px] sm:max-w-[560px] md:max-w-[680px] object-contain drop-shadow-[0_22px_60px_rgba(0,0,0,0.65)]"
-            loading="lazy"
-            initial={{ opacity: 0, y: 24, scale: 0.92, filter: 'blur(10px)' }}
-            animate={
-              isInView
-                ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
-                : { opacity: 0, y: 24, scale: 0.92, filter: 'blur(10px)' }
-            }
-            transition={{ duration: 0.9, ease: 'easeOut', delay: 0.05 }}
-          />
+          <div className="mx-auto -mt-[2cm] mb-6 w-full max-w-6xl rounded-xl bg-gray-100/95 px-6 py-6 shadow-2xl flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
+            {paintLogos.map((logo, idx) => (
+              <motion.img
+                key={logo.src}
+                src={logo.src}
+                alt={logo.alt}
+                className="h-28 sm:h-36 md:h-44 w-auto max-w-[92vw] sm:max-w-[520px] md:max-w-[620px] object-contain drop-shadow-[0_22px_60px_rgba(0,0,0,0.65)]"
+                loading="lazy"
+                initial={{ opacity: 0, y: 24, scale: 0.92, filter: 'blur(10px)' }}
+                animate={
+                  isInView
+                    ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
+                    : { opacity: 0, y: 24, scale: 0.92, filter: 'blur(10px)' }
+                }
+                transition={{ duration: 0.9, ease: 'easeOut', delay: 0.05 + idx * 0.08 }}
+              />
+            ))}
+          </div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             Über uns
           </h2>
@@ -101,11 +109,19 @@ const About = () => {
             variants={fadeLeft}
             className="mb-8 md:mb-4 md:mr-10 md:float-left md:w-[46%] lg:w-[40%]"
           >
-            <img
-              src="https://images.pexels.com/photos/3954635/pexels-photo-3954635.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Lackierzentrum"
-              className="w-full rounded-lg shadow-2xl"
-            />
+            <div
+              className="w-full rounded-lg shadow-2xl overflow-hidden bg-cover bg-center"
+              style={{ backgroundImage: `url("${encodeURI('/sfondo per sito.png')}")` }}
+            >
+              <img
+                src="/insert.png"
+                alt="Lackierzentrum De Michele"
+                className="w-full h-auto object-contain"
+                onError={(e) => {
+                  e.currentTarget.src = '/logo per sito.gif';
+                }}
+              />
+            </div>
           </motion.div>
 
           <motion.div
