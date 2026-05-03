@@ -1,4 +1,4 @@
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 
 type FooterProps = {
   onNavigateToSection?: (sectionId: string) => void;
@@ -98,6 +98,15 @@ const Footer = ({ onNavigateToSection, onOpenImpressumPage }: FooterProps) => {
                 </p>
               </div>
               <div className="flex items-center space-x-3">
+                <Phone className="w-5 h-5 text-brand-blue flex-shrink-0" />
+                <a
+                  href="tel:079619509370"
+                  className="text-gray-400 hover:text-brand-gold transition-colors"
+                >
+                  07961-95093 70
+                </a>
+              </div>
+              <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-brand-blue flex-shrink-0" />
                 <a
                   href="mailto:info@lackierzentrum-demichele.de"
@@ -107,6 +116,16 @@ const Footer = ({ onNavigateToSection, onOpenImpressumPage }: FooterProps) => {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="mb-8 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 p-5">
+          <h3 className="text-white font-semibold mb-3">Zahlungsdaten</h3>
+          <div className="space-y-1 text-gray-400 text-sm leading-relaxed">
+            <p>Zahlungsempfänger: Lackierzentrum De Michele</p>
+            <p>Name der Bank: Kreissparkasse Ostalb</p>
+            <p>IBAN: DE05 6145 0050 1001 5999 73</p>
+            <p>Steuernummer: 49 254 870 131</p>
           </div>
         </div>
 

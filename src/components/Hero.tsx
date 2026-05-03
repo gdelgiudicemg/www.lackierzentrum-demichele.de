@@ -204,16 +204,26 @@ const Hero = ({ onOpenGalleryPage }: HeroProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="mt-[2cm] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+          <motion.h1
+            className="mt-[2cm] text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+            initial={{ opacity: 0, y: 28, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+          >
             Jede Lackierung ein Meisterstück.
             <br />
             <span className="block mt-[1cm] bg-gradient-to-r from-brand-red via-brand-gold/90 to-brand-blue bg-clip-text text-transparent">
               Präzision, Glanz und Perfektion!
             </span>
-          </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 mt-[1cm] mb-4 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p
+            className="text-xl sm:text-2xl text-gray-300 mt-[1cm] mb-4 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 18, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.75, ease: 'easeOut', delay: 0.15 }}
+          >
             Ihr Lackierzentrum in Ellwangen
-          </p>
+          </motion.p>
           <p className="text-lg sm:text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
             Von Smart Repair bis Komplettlackierung – professionelle
             Fahrzeugveredelung mit Meisterkompetenz
