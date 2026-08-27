@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -14,24 +14,60 @@ import SplashLogo from './components/SplashLogo';
 import GalleryPage from './components/GalleryPage.tsx';
 import ImpressumPage from './components/ImpressumPage';
 
+const MAX_SPLASH_MS = 5500;
+
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [page, setPage] = useState<'home' | 'gallery' | 'impressum'>('home');
   const [galleryCategoryId, setGalleryCategoryId] = useState<string | undefined>(undefined);
   const backgroundSrc = encodeURI('/sfondo per sito.png');
-  const closedRef = useRef(false);
 
-  const closeSplash = useCallback(() => {
-    if (closedRef.current) return;
-    closedRef.current = true;
+  const closeSplashNow = () => {
     setShowSplash(false);
-  }, []);
+  };
 
   useEffect(() => {
-    const hard = setTimeout(closeSplash, 5000);
-    return () => clearTimeout(hard);
-  }, [closeSplash]);
+    let cancelled = false;
+    const timers: number[] = [];
+    const kill = () => {
+      if (cancelled) return;
+      cancelled = true;
+      setShowSplash(false);
+    };
+    timers.push(window.setTimeout(() => setShowSplash(false), 2500));
+    timers.push(window.setTimeout(kill, MAX_SPLASH_MS));
+    const forceOnEvent = () => {
+      if (cancelled) return;
+      const t = window.setTimeout(() => setShowSplash(false), 900);
+      timers.push(t);
+    };
+    const onAny = () => forceOnEvent();
+    const onKey = (e: KeyboardEvent) => {
+      if (
+        e.key === 'Escape' ||
+        e.key === 'Enter' ||
+        e.key === ' ' ||
+        e.code === 'Space'
+      ) {
+        setShowSplash(false);
+      }
+    };
+    window.addEventListener('load', onAny, { once: true });
+    window.addEventListener('pointerdown', onAny, { once: false });
+    window.addEventListener('keydown', onKey, { once: false });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') onAny();
+    });
+    return () => {
+      cancelled = true;
+      timers.forEach((t) => window.clearTimeout(t));
+      window.removeEventListener('load', onAny);
+      window.removeEventListener('pointerdown', onAny);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, []);
+
   useEffect(() => {
     if (showSplash) {
       setShowContent(false);
@@ -43,10 +79,10 @@ function App() {
     }
     const prev = document.body.style.overflow;
     document.body.style.overflow = '';
-    const t = setTimeout(() => setShowContent(true), 350);
+    const t = window.setTimeout(() => setShowContent(true), 300);
     return () => {
       document.body.style.overflow = prev;
-      clearTimeout(t);
+      window.clearTimeout(t);
     };
   }, [showSplash]);
 
@@ -74,7 +110,7 @@ function App() {
 
   return (
     <>
-      <SplashLogo show={showSplash} onFinish={closeSplash} />
+      <SplashLogo show={showSplash} onFinish={closeSplashNow} />
       <div className="min-h-screen relative bg-black">
         <div aria-hidden className="pointer-events-none fixed inset-0 z-[0]">
           <div
