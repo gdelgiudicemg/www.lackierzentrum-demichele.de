@@ -25,11 +25,11 @@ const Footer = ({ onNavigateToSection, onOpenImpressumPage }: FooterProps) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <img
-              src="/images/insert.png"
+              src="/logo.png"
               alt="Lackierzentrum De Michele"
-              className="h-12 mb-4"
+              className="h-16 mb-4 w-auto object-contain"
               onError={(e) => {
-                e.currentTarget.src = '/daniele.jpeg';
+                e.currentTarget.src = '/logo%20per%20sito.gif';
               }}
             />
             <p className="text-gray-400 mb-4">
@@ -103,7 +103,7 @@ const Footer = ({ onNavigateToSection, onOpenImpressumPage }: FooterProps) => {
                   href="tel:079619509370"
                   className="text-gray-400 hover:text-brand-gold transition-colors"
                 >
-                  07961-95093 70
+                  07961 / 950 9370
                 </a>
               </div>
               <div className="flex items-center space-x-3">
@@ -125,7 +125,7 @@ const Footer = ({ onNavigateToSection, onOpenImpressumPage }: FooterProps) => {
             <p>Zahlungsempfänger: Lackierzentrum De Michele</p>
             <p>Name der Bank: Kreissparkasse Ostalb</p>
             <p>IBAN: DE05 6145 0050 1001 5999 73</p>
-            <p>Steuernummer: 49 254 870 131</p>
+            <p>Steuernummer: DE 461881961</p>
           </div>
         </div>
 

@@ -180,7 +180,7 @@ const Navigation = ({
           </div>
           <div className="flex items-center gap-6">
             <a href="tel:079619509370" className="hover:text-brand-gold transition-colors">
-              Telefon: 07961-95093 70
+              Telefon: 07961 / 950 9370
             </a>
             <button
               onClick={() => navigateToSection('contact')}

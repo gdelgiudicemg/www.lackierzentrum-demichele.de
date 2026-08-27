@@ -38,13 +38,8 @@ const BeforeAfter = ({
   })();
   const beforeSrcResolved = beforeCandidates[Math.min(beforeIndex, beforeCandidates.length - 1)];
   const afterSrcResolved = afterCandidates[Math.min(afterIndex, afterCandidates.length - 1)];
-  const isSlide1 = /\/images\/foto slide\/1\s+pre\./i.test(decodeURI(beforeSrc));
   const isSlide6 = /\/images\/foto slide\/6\s+pre\./i.test(decodeURI(beforeSrc));
-  const imageFitClass = isSlide1
-    ? 'object-contain bg-black/40'
-    : isSlide6
-    ? 'object-contain'
-    : 'object-cover';
+  const imageFitClass = isSlide6 ? 'object-contain' : 'object-cover';
   return (
     <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg overflow-hidden">
       <div className="relative aspect-video">
