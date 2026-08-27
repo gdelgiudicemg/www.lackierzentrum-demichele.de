@@ -80,7 +80,7 @@ const SplashLogo = ({ show, onFinish }: SplashLogoProps) => {
             onError={handleImgError}
           />
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-widest uppercase">
-            Click per saltare
+            Klicken zum Überspringen
           </div>
         </motion.div>
       )}
