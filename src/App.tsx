@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -20,6 +20,18 @@ function App() {
   const [page, setPage] = useState<'home' | 'gallery' | 'impressum'>('home');
   const [galleryCategoryId, setGalleryCategoryId] = useState<string | undefined>(undefined);
   const backgroundSrc = encodeURI('/sfondo per sito.png');
+  const closedRef = useRef(false);
+
+  const closeSplash = useCallback(() => {
+    if (closedRef.current) return;
+    closedRef.current = true;
+    setShowSplash(false);
+  }, []);
+
+  useEffect(() => {
+    const hard = setTimeout(closeSplash, 5000);
+    return () => clearTimeout(hard);
+  }, [closeSplash]);
   useEffect(() => {
     if (showSplash) {
       setShowContent(false);
@@ -62,7 +74,7 @@ function App() {
 
   return (
     <>
-      <SplashLogo show={showSplash} onFinish={() => setShowSplash(false)} />
+      <SplashLogo show={showSplash} onFinish={closeSplash} />
       <div className="min-h-screen relative bg-black">
         <div aria-hidden className="pointer-events-none fixed inset-0 z-[0]">
           <div
